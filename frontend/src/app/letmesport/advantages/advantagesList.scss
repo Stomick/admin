@@ -1,0 +1,58 @@
+.advantages-list{
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  li{
+    display: inline-block;
+    vertical-align: top;
+    flex-basis: 22%;
+    margin-right: 2%;
+  }
+
+  &__easy-list{
+    margin-bottom: 20px;
+    img{
+      max-width: 23px;
+      max-height: 23px;
+    }
+  }
+}
+
+label.custom-check{
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 19px;
+  cursor: pointer;
+
+  input{
+    position: absolute;
+    left: -9999px;
+  }
+
+  span{
+    display: inline-block;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    padding-left: 1px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    i{
+      opacity: 0;
+      color: #bde07a;
+      transition: opacity 0.2s linear;
+      font-size: 19px;
+    }
+  }
+
+  input:checked+span i{
+    opacity: 1;
+  }
+}

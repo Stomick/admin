@@ -1,0 +1,21 @@
+<div class="row googlemap">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div widget class="card">
+          <div class="card-header">
+            <span>Google Maps</span>
+            <div class="widget-controls"> 
+                <a data-widgster="close" href="#" class="transition"><i class="glyphicon glyphicon-remove"></i></a>
+            </div>        
+          </div>
+          <div class="card-block widget-body">              
+           <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true">
+                </sebm-google-map-marker>
+            </sebm-google-map>
+          </div>
+        </div>
+  </div>
+</div> 
+
+
+

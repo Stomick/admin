@@ -1,0 +1,47 @@
+<div class="info-block">
+    <div *ngIf="services.length != 0; services">
+        <div *ngFor="let service of services; let i = index">
+            <div class="info-block__header margin">
+                <h3>Дополнительная услуга</h3>
+            </div>
+            <form>
+                <div class="row">
+                    <div class="col-xs-12 col-md-9">
+                        <div class="form-group">
+                            <input [disabled]="isAdmin" type="text" placeholder="Новая услуга" [(ngModel)]="service.name" name="serviceName">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="form-group">
+                            <input [disabled]="isAdmin" type="number" placeholder="Введите цену" [(ngModel)]="service.price" name="servicePrice"
+                                   class="rub-icon">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <textarea [disabled]="isAdmin" [(ngModel)]="service.description" name="serviceDesc"></textarea>
+                            <div *ngIf="!isAdmin" class="block-add-btn">
+                                <span class="delete-btn" (click)="service.visible = true">Удалить услугу</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="custom-modal" [hidden]="!service.visible">
+                <h1 class="custom-modal__title">Удалить услугу</h1>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6"><button class="btn btn-danger" (click)="removeService(i); service.visible = false">Удалить</button></div>
+                    <div class="col-xs-12 col-sm-6"><button class="btn btn-default" (click)="service.visible = false">Отменить</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <span *ngIf="services.length == 0 || !services && !isAdmin">Добавьте первую дополнительную услугу</span>
+
+    <div *ngIf="!isAdmin" class="block-add-btn border">
+        <div class="pull-right">
+            <span class="btn btn-success" (click)="addService()">Добавить услугу</span>
+        </div>
+    </div>
+</div>

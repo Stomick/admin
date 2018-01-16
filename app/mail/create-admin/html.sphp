@@ -1,0 +1,14 @@
+<?php
+/* @var $this yii\web\View */
+/* @var $model app\models\User */
+/* @var  $password string */
+
+?>
+<p><?= $model->name; ?>, для вас создан аккаунт администратора на портале Weev.ru</p>
+<p>Личный кабинет доступен по ссылке http://admin.weev.ru/login/</p>
+<p>
+    Login: <?= $model->email; ?>
+    <br>
+    Password: <?= $password; ?>
+    <br>
+</p>

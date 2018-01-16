@@ -1,0 +1,67 @@
+<div class="c-align">
+    <div class="facilities">
+        <h2>Пользователи мобильного приложения</h2>
+        <table class="text-center">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Имя</th>
+                <th>Телефон</th>
+                <th>Дата регистрации</th>
+                <th>Кол-во бронирований</th>
+                <th>Сумма</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of data; let i = index">
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{user.date}}</td>
+                <td>
+                    <div [ngClass]="{'booking-short': user.bookings.length > 0}" (click)="showUserModal(i)">
+                        <span *ngIf="user.bookings.length > 0">{{user.bookings.length}}</span>
+                        <span *ngIf="user.bookings.length == 0">Нет</span> бронирован<span *ngIf="user.bookings.length == 1">ие</span><span *ngIf="user.bookings.length >= 2 && user.bookings.length <= 4">ия</span><span *ngIf="user.bookings.length == 0 || user.bookings.length >= 5">ий</span>
+                    </div>
+                    <div *ngIf="user.bookings.length > 0" class="modal-wrap booking-modal">
+                        <span [hidden]="!user.showDrop" (click)="user.showDrop = !user.showDrop" class="modal-shadow"></span>
+                        <div class="custom-modal" [hidden]="!user.showDrop">
+                            <div class="booking-info">
+                                <div class="booking-info__item" *ngFor="let booking of user.bookings">
+                                    <p class="booking-info__title">Бронирование № {{booking.id}}</p>
+                                    <p class="booking-info__title">{{booking.sportCenterName}}</p>
+                                    <p class="booking-info__text"><span [hidden]="booking.day > 9">0</span>{{booking.day}}.<span [hidden]="booking.month > 9">0</span>{{booking.month}} c {{booking.hour}}:00 до {{booking.hour + 1}}:00, {{booking.playingFieldName}}<span *ngIf="booking.services.length > 0">, </span><span
+                                                *ngFor="let service of booking.services; let indexServ = index">{{service.name}}<span
+                                                *ngIf="indexServ != booking.services.length - 1">, </span></span>. Стоимость
+                                        бронирования: {{booking.price}}₽</p>
+                                </div>
+                            </div>
+                            <span class="modal-close" (click)="hideUserModal()"><i class="fa fa-times" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </td>
+                <td>{{user.sum}}₽</td>
+                <td class="delete" (click)="showDeleteModal(user.id)">
+                    <i class="fa fa-times" aria-hidden="true"></i> Удалить
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <paginations *ngIf="infoPages.pageCount > 1" [(infoPages)]="infoPages" (goToPage)="goToPage($event)"></paginations>
+        <div class="clearfix">
+            <div class="modal-wrap">
+                <span [hidden]="!modalDelete" (click)="modalDelete = !modalDelete" class="modal-shadow"></span>
+                <div class="custom-modal" [hidden]="!modalDelete">
+                    <h1 class="custom-modal__title">Удалить пользователя</h1>
+                    <form>
+                        <div class="pull-right">
+                            <button class="btn btn-default" (click)="modalDelete = !modalDelete">Отмена</button>
+                            <button class="btn btn-danger" (click)="remove(currentId)">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

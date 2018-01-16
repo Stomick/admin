@@ -1,0 +1,39 @@
+.advantagesTable{
+  padding-left: 0;
+
+  li{
+    display: inline-block;
+    width: 49%;
+    margin-right: 2%;
+    list-style-type: none;
+    padding: 7px 0 7px 14px;
+    border-bottom: 1px solid #dbdbdb;
+
+    .advantagesTable__icon{
+      max-width: 24px;
+      max-height: 21px;
+    }
+
+    img{
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    span{
+      color: #646464;
+      font-size: 13px;
+    }
+
+    .advantages-ctrl{
+      span{cursor: pointer}
+    }
+    &:nth-child(even){margin-right: 0}
+  }
+
+  .right-text{text-align: right}
+}
+
+.advantages-wrap{
+  .modal-wrap{margin-top: 10px}
+}

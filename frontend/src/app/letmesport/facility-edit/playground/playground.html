@@ -1,0 +1,41 @@
+<div [ngClass]="{'short':playground.collapse}">
+    <div class="info-block">
+        <div class="info-block__header">
+            <h3>Основная информация</h3>
+            <div (click)="playground.collapse = !playground.collapse"  class="pull-right collapse-ctrl">
+                <span *ngIf="playground.collapse">Показать доступное время для бронирования <i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                <span *ngIf="!playground.collapse">Скрыть доступное время для бронирования <i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+            </div>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                        <input [disabled]="isAdmin" type="text" placeholder="Имя корта" name="groundTitle" [(ngModel)]="playground.name">
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <textarea [disabled]="isAdmin" name="groundDesc" placeholder="Описание корта" [(ngModel)]="playground.info"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="info-block">
+        <div class="info-block__header">
+            <h3>Часы доступные для бронирования</h3>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <worktime [(workPossible)]="weekday" [typeDay]="'work'" (newWorkTime)="updateTime($event)">Будни</worktime>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <worktime [(workPossible)]="weekend" [typeDay]="'weekend'" (newWorkTime)="updateTime($event)">Выходные</worktime>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,1 @@
+php yii.php serve --docroot="prod"

@@ -1,0 +1,93 @@
+<div class="c-align">
+    <div class="facilities">
+        <h2>Редактирование объекта</h2>
+
+        <div class="info-block">
+            <div class="info-block__header">
+                <h3>Основная информация</h3>
+            </div>
+            <form>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="form-group">
+                            <input type="text" name="facilityName" [(ngModel)]="data.name" placeholder="Название" [disabled]="isAdmin">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="form-group">
+                            <input type="text" name="facilityPhone" [(ngModel)]="data.phone" placeholder="Телефон" [disabled]="isAdmin">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="form-group">
+                            <input type="text" name="facilityAddress" [(ngModel)]="data.address" placeholder="Адрес" [disabled]="isAdmin">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-lg-3"></div>
+
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="form-group">
+                            <input type="text" name="facilityLatitude" [(ngModel)]="data.latitude" placeholder="Широта" [disabled]="isAdmin">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="form-group">
+                            <input type="text" name="facilityLongitude" [(ngModel)]="data.longitude" placeholder="Долгота" [disabled]="isAdmin">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <textarea name='facilityDescription' [(ngModel)]="data.description" placeholder="Дополнительная информация" [disabled]="isAdmin"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <photo-upload [(photoArray)]="photoArray" [(logoSrc)]="logoSrc" [(logo)]="logo" (newLogo)="saveLogo($event)"></photo-upload>
+
+        <advantagesList [(advantagesList)]="advantagesList"></advantagesList>
+
+    </div>
+
+    <div class="facilities" [hidden]="playgroundArray.length == 0 && isAdmin">
+        <h2>Корты доступные для бронирования</h2>
+        <div *ngIf="playGroundIs">
+            <div class="worktime__wrap" *ngFor="let item of playgroundArray; let i = index">
+                <playground [playground]="playgroundArray[i]"></playground>
+                <span class="poly_delete" (click)="removePlayground(i)"><i aria-hidden="true" class="fa fa-times"></i> Удалить</span>
+            </div>
+        </div>
+
+        <span *ngIf="!playGroundIs && !isAdmin">Создайте первый корт</span>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="block-add-btn">
+                    <div class="pull-right">
+                        <span *ngIf="!isAdmin" class="btn btn-success" (click)="AddPlayGround()">Добавить корт для бронирования</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="facilities" [hidden]="services.length == 0 && isAdmin">
+        <h2>Дополнительные услуги</h2>
+        <servicesList [(services)]="services"></servicesList>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="pull-left" *ngIf="!isAdmin" class="btn btn-margin btn-success" (click)="change()">Сохранить изменения</span>
+            <div class="pull-left" *ngIf="isAdmin">
+                <span *ngIf="data.approvementStatus != 'active'" class="btn btn-margin-left btn-margin btn-success" (click)="changeStatus('active')">Опубликовать</span>
+                <span *ngIf="data.approvementStatus != 'not active'" class="btn btn-margin-left btn-margin btn-danger" (click)="changeStatus('not active')">Не публиковать</span>
+            </div>
+            <div class="pull-right">
+                <span class="btn btn-margin btn-default" [routerLink]="'/pages/facilities-list'">К списку объектов</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="info-block" (click)="closeBookingModal()">
+    <div class="info-block__header">
+        <h3>{{playgroundData.playingFieldName}}</h3>
+    </div>
+    <div class="row" *ngFor="let day of this.daysRequest">
+        <div class="col-sm-12">
+            <span>{{day.dateDayFormatted}}</span>
+        </div>
+        <br/>
+        <div class="col-sm-12">
+            <div class="row" >
+                <ul class="ul_time_line" style="list-style: none; padding-left: 9px;">
+                    <li *ngFor="let time of day.workTime; let i = index">
+                        <h2>Цена за час : {{time.price}} RUB</h2>
+                        <div class="time_line {{hour.style}}" data-toggle="tooltip" data-placement="bottom" title="{{hour.hour}} - {{time.price}} RUB"
+                             (click)="(hour.bookId.id > 0) ? showBooking($event, day, hour) : timeBlock($event , playgroundData.playingFieldId , day.dateFormatted) " *ngFor="let hour of time.avalabTime">{{hour.hour}}
+                        <br />
+                        <template [ngIf]="hour.bookId.id > 0">
+                            <div class="modal-booking" *ngIf="hour.showModal" (click)="$event.stopPropagation()">
+                                <h3>Бронирование № {{hour.bookId.id}}</h3>
+                                <p class="create-from">Забронирован через <span [hidden]="hour.bookId.adminBooking">приложение</span><span [hidden]="!hour.bookId.adminBooking">панель администратора</span></p>
+                                <p>{{hour.bookId.userName}}</p>
+                                <p>{{hour.bookId.phone}}</p>
+                                <p>{{hour.bookId.bookingDate.date}} - {{hour.hour}}</p>
+                                <p [ngIf]="!hour.bookId.service && hour.bookId.service.length > 0" *ngFor="let service of hour.bookId.service">{{service.name}}</p>
+                                <p class="modal-booking__price">Стоимость бронирования: {{hour.bookId.price}}</p>
+                                <div class="text-center">
+                                    <span (click)="showDeleteModal(hour.bookId.id)" class="btn btn-danger">Удалить бронирование</span>
+                                </div>
+                            </div>
+                        </template>
+                        </div>
+<!--
+                        <template [ngIf]="!this.isBooking(time) && showTime(time, day)">
+                            <template [ngIf]="isDisabled(time)">
+                                <button (click)="processTime($event, day, time)" style="margin: 5px; font-size: large;" class="btn btn-default">
+                                    {{time.formattedHour}}
+                                </button>
+                            </template>
+
+                            <template [ngIf]="isEnabled(time)">
+                                <button (click)="processTime($event, day, time)" style="margin: 5px; font-size: large;" class="btn btn-success">
+                                    {{time.formattedHour}}
+                                </button>
+                            </template>
+                        </template>
+-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- <table class="timetableBlock">
+        <tbody>
+        <tr *ngFor="let day of this.daysRequest">
+            <td>{{day.date}}</td>
+            <td class="center-text" [ngClass]="{'enable': time.workDay.indexOf(day.type) > -1, 'disable': time.workDay.indexOf(day.type) == -1, 'booking': time.booking != null}" *ngFor="let time of day.workTime">
+                <span (click)="time.showModal = !time.showModal; bgVisible = false">
+                    {{time.hour}}
+                </span>
+                <div class="modal-booking" *ngIf="time.booking != null" [hidden]="!time.showModal">
+                    <h3>Бронирование № {{time.booking.id}}</h3>
+                    <p class="create-from">Забронирован через <span [hidden]="time.booking.adminBooking">приложение</span><span [hidden]="!time.booking.adminBooking">панель администратора</span></p>
+                    <p>{{time.booking.userName}}</p>
+                    <p>{{time.booking.numberPhone}}</p>
+                    <p>{{day.date}} c {{time.hour}}:00 до {{time.hour + 1}}:00</p>
+                    <p *ngFor="let item of time.booking.service">{{item.name}}</p>
+                    <p class="modal-booking__price">Стоимость бронирования: {{time.booking.price}}</p>
+                    <div class="text-center">
+                        <span (click)="showDeleteModal(time.booking.id)" class="btn btn-danger">Удалить бронирование</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr></tr>
+        </tbody>
+    </table> -->
+</div>
+
+<div class="clearfix">
+    <div class="modal-wrap">
+        <span [hidden]="!modalDelete" (click)="modalDelete = !modalDelete" class="modal-shadow"></span>
+        <div class="custom-modal" [hidden]="!modalDelete">
+            <h1 class="custom-modal__title">Удалить бронирование</h1>
+            <form>
+                <div class="pull-right">
+                    <button class="btn btn-default" (click)="modalDelete = !modalDelete">Отмена</button>
+                    <button class="btn btn-danger" (click)="removeBook(currentId)">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<span (click)="hideAllDrop();" [hidden]="bgVisible" class="transparent-background"></span>

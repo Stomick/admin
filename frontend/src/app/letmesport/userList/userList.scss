@@ -1,0 +1,31 @@
+.booking-modal{
+  .custom-modal{
+    max-height: 600px;
+    overflow-y: auto;
+  }
+}
+
+.booking-info{
+
+  &__item{
+    margin-bottom: 30px;
+  }
+
+  &__title{
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  &__text{margin-bottom: 0}
+}
+
+.booking-short{
+  color: #1e5799;
+  border-bottom: 1px dashed #1e5799;
+  display: inline-block;
+  transition: border 0.1s linear;
+  cursor: pointer;
+
+  &:hover{border-bottom-color: #fff}
+}

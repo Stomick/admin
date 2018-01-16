@@ -1,0 +1,23 @@
+<div class="info-block" [hidden]="!isChecked && isAdmin">
+    <div class="info-block__header">
+        <h3>Преимущества объекта:</h3>
+    </div>
+
+    <ul class="advantages-list" *ngIf="!isAdmin">
+        <li *ngFor="let advantage of list">
+            <label class="custom-check">
+                <input name="{{advantage.name}}" [checked]="advantage.check" type="checkbox" (change)="changeCheck(advantage.id)">
+                <span><i class="fa fa-check-square" aria-hidden="true"></i></span>
+                {{advantage.name}}
+            </label>
+        </li>
+    </ul>
+    <ul class="advantages-list" *ngIf="isAdmin">
+        <li *ngFor="let advantage of list" [hidden]="!advantage.check">
+            <div class="advantages-list__easy-list">
+                <img [src]="advantage.iconSrc">
+                {{advantage.name}}
+            </div>
+        </li>
+    </ul>
+</div>

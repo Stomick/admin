@@ -1,0 +1,68 @@
+.info-block{
+  margin-top: 17px;
+
+  &__header{
+    @extend .clearfix;
+    margin-bottom: 19px;
+
+    &.margin{margin-top: 20px}
+
+    h3{
+      display: inline-block;
+      font-size: 14px;
+      color: $black-color;
+      font-weight: 600;
+      margin: 0;
+    }
+    button{
+      float: right;
+      border: 0;
+      background: transparent;
+      font-size: 14px;
+      white-space: nowrap;
+      cursor: pointer;
+      i{
+        font-size: 24px;
+        color: #bde07a;
+        margin-right: 9px;
+        vertical-align: sub;
+      }
+    }
+  }
+
+  input, textarea{
+    width: 100%;
+    border: 1px solid $border-color;
+    color: #363636;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 10px 10px 10px 21px;
+    resize: none;
+
+    &.small-field{padding: 3px 10px 3px 21px}
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    &.rub-icon{
+      background-image: url("../../../assets/img/rub-icon.png");
+      background-position: right 14px center;
+      background-repeat: no-repeat;
+      padding-right: 25px;
+    }
+  }
+
+  textarea{height: 130px}
+}
+
+.btn-margin{
+  margin: 20px 0;
+}
+
+.btn-margin-left{
+  margin-left: 10px;
+}

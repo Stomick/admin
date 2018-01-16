@@ -1,0 +1,77 @@
+<script src="facilities-list.component.ts"></script>
+<div class="c-align">
+    <div class="facilities">
+        <h2>Список объектов</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Название</th>
+                <th>Администраторы</th>
+                <th>Реквизиты</th>
+                <th>Активность</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let obj of data; let i = index">
+                <td [routerLink]="['/pages/facility-edit', obj.id]">{{i+1}} </td>
+                <td [routerLink]="['/pages/facility-edit', obj.id]">{{obj.name}}</td>
+                <td>
+                    <span *ngFor="let admin of obj.adminModels; let i = index">{{admin.name}}<span *ngIf="i != obj.adminModels.length - 1">,</span><span *ngIf="i == obj.adminModels.length - 1">.</span> </span>
+                    <span *ngIf="isAdmin" class="addAdmin" (click)="addAdminFast(obj.adminModels, obj.id, i)">Добавить нового администратора</span>
+                </td>
+                <td class="status relative"
+                    [ngClass]="{empty:obj.confirmationStatus == 'Не заполнены',
+                    noActive:obj.confirmationStatus == 'Не прошли проверку',
+                    active:obj.confirmationStatus == 'Одобрено',
+                    noModer:obj.confirmationStatus == 'Ожидается проверка'}">
+                    <div>
+                        <span [routerLink]="['/pages/requisites', obj.companyDetails.id]">{{obj.confirmationStatus}}</span>
+                    </div>
+                </td>
+                <td class="status relative"
+                    [ngClass]="{empty:obj.active == 'Не опубликована',
+                    noActive:obj.active == 'Не опубликована',
+                    active:obj.active == 'Опубликована',
+                    noModer:obj.active == 'Запрос на публикацию'}">
+                    <div>
+                        <span [routerLink]="['/pages/facility-edit', obj.id]">{{obj.active}}</span>
+                    </div>
+                </td>
+                <td *ngIf="isAdmin" class="delete" (click)="showDeleteModal(obj.id)">
+                    <i class="fa fa-times" aria-hidden="true"></i> Удалить
+                </td>
+                <td *ngIf="!isAdmin" class="relative">
+                    <span class="drop-control__call" (click)="obj.controlVisible = !obj.controlVisible; bgVisible = !bgVisible">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </span>
+                    <ul class="drop-control" [hidden]="obj.controlVisible">
+                        <li [routerLink]="['/pages/timetable', obj.id]">Расписание площадок</li>
+                        <li [routerLink]="['/pages/facility-edit', obj.id]">Редактировать информацию</li>
+                        <li [routerLink]="['/pages/requisites', obj.companyDetails.id]">Редактировать реквизиты</li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <paginations *ngIf="infoPages.pageCount > 1" [(infoPages)]="infoPages" (goToPage)="goToPage($event)"></paginations>
+        <div *ngIf="isAdmin" class="clearfix">
+            <div class="modal-wrap">
+                <modalCreateFac (newFacility)="handleOutput($event)"></modalCreateFac>
+                <modalEditAdmin [hidden]="!modal.editAdmin" (closeModal)="closeEditAdmin()" (newAdmin)="saveEditAdmin($event)" [(adminArray)]="adminArray"></modalEditAdmin>
+                <span [hidden]="!modal.delete" (click)="modal.delete = !modal.delete" class="modal-shadow"></span>
+                <div class="custom-modal" [hidden]="!modal.delete">
+                    <h1 class="custom-modal__title">Удалить объект</h1>
+                    <form>
+                        <div class="pull-right">
+                            <button class="btn btn-default" (click)="modal.delete = !modal.delete">Отмена</button>
+                            <button class="btn btn-danger" (click)="remove(currentId)">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span (click)="hideAllDrop();" [hidden]="bgVisible" class="transparent-background"></span>
+</div>

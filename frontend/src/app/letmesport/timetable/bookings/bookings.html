@@ -1,0 +1,25 @@
+<table class="text-center booking-table">
+    <thead>
+    <tr>
+        <th>№</th>
+        <th>Дата посещения</th>
+        <th>Имя</th>
+        <th>Телефон</th>
+        <th>Услуги</th>
+        <th>Оплачено</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let booking of bookings; let i = index">
+        <td>{{booking.id}}</td>
+        <td>{{booking.parseDate}}</td>
+        <td>{{booking.userName}}</td>
+        <td>{{booking.phone}}</td>
+        <td>
+            <p>{{booking.playingFieldName}}.</p>
+            <span *ngFor="let item of booking.service; let i = index">{{item.name}}<span *ngIf="i < booking.service.length - 1">, </span><span *ngIf="i == booking.service.length - 1">.</span></span>
+        </td>
+        <td>{{booking.price}} ₽</td>
+    </tr>
+    </tbody>
+</table>

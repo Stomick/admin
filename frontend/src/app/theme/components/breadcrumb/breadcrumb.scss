@@ -1,0 +1,23 @@
+@import "../../styles/variables";
+
+.breadcrumb{
+    padding: 0;
+    background: transparent;
+    color: $text-color;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+.breadcrumb-item + .breadcrumb-item::before {  
+    color: $text-color;
+    content: ">";
+}
+.breadcrumb-item{
+    float: left;
+    cursor: pointer;
+    font-weight: bold;
+    &.active{
+        cursor: default;
+       color: $text-color;
+        font-weight: normal;
+    }
+}

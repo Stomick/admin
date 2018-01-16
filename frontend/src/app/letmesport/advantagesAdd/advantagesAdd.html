@@ -1,0 +1,50 @@
+<div class="c-align">
+    <div class="facilities advantages-wrap">
+        <h2>Преимущества объекта</h2>
+        <ul class="advantagesTable">
+            <li *ngFor="let item of list; let i = index">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <!--<img [src]="item.src">-->
+                        <img class="advantagesTable__icon" [src]="item.iconSrc">
+                        <span>{{item.name}}</span>
+                    </div>
+                    <div class="col-xs-4 right-text">
+                        <div class="advantages-ctrl">
+                            <span (click)="callEdit(item); editVisible = true" class="edit"><img src="../../../assets/img/edit-icon.png"></span>
+                            <span (click)="removeItem(item.id)" class="delete"><img src="../../../assets/img/delete-icon.png"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="clearfix">
+            <div class="modal-wrap">
+                <createAdvan [hidden]="!createVisible" (newAdvan)="createAdvan($event)" (closeModal)="createVisible = !createVisible">
+                    <button class="btn btn-default" (click)="createVisible = false">Отмена</button>
+                </createAdvan>
+                <span class="btn btn-success open-modal" (click)="createVisible = true">Добавить преимущество</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="modal-wrap">
+
+                <editAdvan (closeModal)="editVisible = !editVisible" [hidden]="!editVisible" [(editElem)]="editElem" (editItem)="editAdvan($event)">
+                    <button class="btn btn-default" (click)="editVisible = false">Отмена</button>
+                </editAdvan>
+
+                <span [hidden]="!deleteModalVisible" (click)="deleteModalVisible = !deleteModalVisible" class="modal-shadow"></span>
+                <div class="custom-modal" [hidden]="!deleteModalVisible">
+                    <h1 class="custom-modal__title">Удалить преимущество</h1>
+                    <form>
+                        <div class="pull-right">
+                            <button class="btn btn-default" (click)="deleteModalVisible = !deleteModalVisible">Отмена</button>
+                            <button class="btn btn-danger" (click)="remove(deleteItem)">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

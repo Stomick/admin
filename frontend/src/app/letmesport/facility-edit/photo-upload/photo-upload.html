@@ -1,0 +1,30 @@
+<div class="info-block" [hidden]="!photoSectionVisible && isAdmin">
+    <div class="info-block__header">
+        <h3>Фотографии площадки:</h3>
+        <button *ngIf="!isAdmin" (click)="addPhoto()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Добавить еще фото</button>
+    </div>
+
+    <div class="photo-list">
+        <div class="photo-list__item">
+            <div class="upload-label">
+                <span class="img-wrap">
+                    <img [src]="logoSrc" alt="Logo">
+                </span>
+                <span *ngIf="!isAdmin && logoSrc != '../../../assets/img/placeground-empty.png'" class="change">Изменить</span>
+                <input *ngIf="!isAdmin" id="upload-logo" type="file" (change)="fileChange($event, 'logo')" accept=".png,.jpg,.jpeg">
+            </div>
+            <span class="img-label">Лого</span>
+        </div>
+        <div [hidden]="isAdmin && img.src == '../../../assets/img/placeground-empty.png'" *ngFor="let img of photoArray; let i = index" class="photo-list__item">
+            <div class="upload-label">
+                <div class="img-wrap">
+                    <img [src]="img.src">
+                </div>
+                <input *ngIf="!isAdmin" id="upload-{{i}}" type="file" (change)="fileChange($event, i)" placeholder="Upload file" accept=".png,.jpg,.jpeg">
+            </div>
+            <span *ngIf="i == 0" class="img-label">Основная фотография</span>
+            <span *ngIf="i > 0" class="img-label">Дополнительная фотография {{i}}</span>
+            <span *ngIf="!isAdmin" class="delete" (click)="removePhoto(i)"><i class="fa fa-times" aria-hidden="true"></i> Удалить</span>
+        </div>
+    </div>
+</div>

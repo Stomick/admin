@@ -1,0 +1,45 @@
+<nav class="navbar az-navbar">
+    <div class="c-align">
+        <a class="navbar-brand" routerLink="/pages/facilities-list">
+            <img src="../assets/img/logo/logo.png" alt="" class="hidden-sm-down">
+            <img src="../assets/img/logo/logo.png" alt="" class="hidden-md-up">
+        </a>
+
+        <sidebar></sidebar>
+
+        <ul class="nav navbar-nav">
+            <li>
+                <a (click)="toggleMenu()" class="collapse-menu-link ion-navicon" id="collapse-menu-link"></a>
+            </li>
+
+            <div class="pull-right">
+
+                <div class="dropdown pull-right user-menu">
+                    <div class="profile">
+                        <label>{{userData.role}}</label>
+                        <span class="profile__name hidden-md-down">{{userData.name}}</span>
+                        <a class="profile__log-out" (click)="logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                    </div>
+                    <!--<a class="dropdown-toggle user-link" data-toggle="dropdown" href="#" role="button" aria-expanded="false">-->
+                        <!--<span class="hidden-md-down">Emilio Verdines</span>-->
+                    <!--</a>-->
+
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li class="user-info">-->
+                            <!--<img src="../assets/img/users/user.jpg" alt="user-img" class="img-circle user-img">-->
+                            <!--<p>-->
+                                <!--Emilio Verdines - Web Developer-->
+                                <!--<small>Member since Dec. 2015</small>-->
+                            <!--</p>-->
+                        <!--</li>-->
+                        <!--<a class="dropdown-item" routerLink="profile"><i class="fa fa-user"></i>Profile</a>-->
+                        <!--<a class="dropdown-item" routerLink="settings"><i class="fa fa-cog"></i>Settings</a>-->
+                        <!--<a class="dropdown-item" routerLink="/"><i class="fa fa-lock"></i>Lock screen</a>-->
+                        <!--<div class="dropdown-divider"></div>-->
+                        <!--<a class="dropdown-item" routerLink="/login"><i class="fa fa-power-off"></i>Log out</a>-->
+                    <!--</ul>-->
+                </div>
+            </div>
+        </ul>
+    </div>
+</nav>

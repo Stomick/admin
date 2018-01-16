@@ -1,0 +1,43 @@
+<div class="c-align">
+    <div class="facilities">
+        <h2>Список Администраторов</h2>
+        <table class="text-center">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Имя</th>
+                <th>E-mail</th>
+                <th>Телефон</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of data">
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.phone}}</td>
+                <td class="delete" (click)="showDeleteModal(user.id)">
+                    <i class="fa fa-times" aria-hidden="true"></i> Удалить
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <paginations *ngIf="infoPages.pageCount > 1" [(infoPages)]="infoPages" (goToPage)="goToPage($event)"></paginations>
+        <div class="clearfix">
+            <div class="modal-wrap">
+                <adminCreateModal (sentNewAdmin)="handleOutput($event)"></adminCreateModal>
+                <span [hidden]="!modalDelete" (click)="modalDelete = !modalDelete" class="modal-shadow"></span>
+                <div class="custom-modal" [hidden]="!modalDelete">
+                    <h1 class="custom-modal__title">Удалить администратора</h1>
+                    <form>
+                        <div class="pull-right">
+                            <button class="btn btn-default" (click)="modalDelete = !modalDelete">Отмена</button>
+                            <button class="btn btn-danger" (click)="remove(currentId)">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,202 @@
+<div class="c-align">
+    <div class="facilities">
+        <h2>Реквизиты объекта {{req.sportCenterName}}</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+        <div class="requisites-form">
+            <form>
+                <div class="form-group">
+                    <label>Краткое наименование организации</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.shortName" name="reqShortName" type="text" placeholder="Общество с ограниченной ответственностью «МК-Стройсервис»">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Полное наименование организации</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.fullName" name="fullName" type="text" placeholder="Введите полное наименование организации">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Юридический адрес</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.legalAddress" name="legalAddress" type="text" placeholder="Введите юридический адрес">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>ИНН</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.inn" name="inn" type="text" placeholder="Введите ИНН">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>КПП</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.kpp" name="kpp" type="text" type="text" placeholder="Введите КПП">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>ОГРН</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.ogrn" name="ogrn" type="text" placeholder="Введите ОГРН">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>ОКПО</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.okpo" name="okpo" type="text" placeholder="Введите ОКПО">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>ОКАТО</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.okato" name="okato" type="text" placeholder="Введите ОКАТО">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>ОКВЭД</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.okved" name="okved" type="text" placeholder="Введите ОКВЭД">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Банк</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.bank" name="bank" type="text" placeholder="Введите название банка">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>БИК</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.bik" name="bik" type="text" placeholder="Введите БИК">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Корр. счет</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.corrAccount" name="corrAccount" type="text" placeholder="Введите Корр. счет">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Расчетный счет</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.account" name="account" type="text" placeholder="Введите расчетный счет">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Генеральный Директор</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.generalManager" name="generalManager" type="text" placeholder="Введите Генеральный Директор">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.email" name="email" type="text" placeholder="Введите email:">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>WEB сайт</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.webSite" name="webSite" type="text" placeholder="Введите WEB сайт">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Тел/Факс</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.fax" name="fax" type="text" placeholder="Введите Тел./Факс">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Телефоны</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.phone" name="phone" type="text" placeholder="Введите телефоны">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Секретный Ключ PayU</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.payu_id" name="payu_id" type="text" placeholder="Введите Ключ PayU">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Процент сбора</label>
+                    <div class="field-block">
+                        <input [(ngModel)]="req.procent" name="procent" type="text" placeholder="Процент сбора c площадки">
+                        <div class="has-error">
+                            <span>Проверьте правильность ввода</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <span class="pull-left" *ngIf="!isAdmin" (click)="sendReq()" class="btn btn-margin btn-success">Отправить на проверку</span>
+                        <div class="pull-left" *ngIf="isAdmin">
+                            <span *ngIf="req.confirmationStatus != 'true'" (click)="changeStatus('true')" class="btn btn-margin-left btn-margin btn-success">Одобрить</span>
+                            <span *ngIf="req.confirmationStatus != 'false'" (click)="changeStatus('false')" class="btn btn-margin-left btn-margin btn-danger">Отклонить</span>
+                        </div>
+                        <div class="pull-right">
+                            <span [routerLink]="'/pages/facilities-list'" class="btn btn-margin btn-default">К списку объектов</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

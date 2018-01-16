@@ -1,0 +1,164 @@
+.worktime{
+  margin-bottom: 22px;
+
+  &__wrap{
+    margin-bottom: 20px;
+    border-top: 1px solid $border-color;
+
+    &:first-child{border-top:0}
+
+    .poly_delete{
+      cursor: pointer;
+      color: red;
+    }
+
+    &:last-child{
+      border-bottom: 2px solid $border-color;
+      padding-bottom: 30px;
+      margin-bottom: 10px;
+    }
+  }
+
+  &>*{
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0;
+  }
+
+  &.select-no-margin{
+    .worktime__select{margin-left: 0}
+  }
+
+  &>label{
+    color: #010101;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &__select{
+    position: relative;
+    margin-left: 11px;
+
+    &:last-child{margin-left: 6px}
+
+    input{
+      color: $black-color;
+      font-size: 16px;
+      width: 123px;
+      padding: 9px 10px 9px 37px;
+      cursor: pointer;
+    }
+
+    span{
+      position: absolute;
+      top: 11px;
+
+      &.prefix{
+        left: 17px;
+        color: #646464;
+        font-size: 14px;
+      }
+
+      &.arrow{
+        right: 15px;
+        font-size: 13px;
+      }
+    }
+
+    .drop{
+      list-style-type: none;
+      position: absolute;
+      top: 42px;
+      padding: 0;
+      left: 0;
+      right: 0;
+      color: #000;
+      z-index: 10;
+      background: #fff;
+      border: 1px solid $border-color;
+
+      li{
+        padding: 10px 15px;
+        font-size: 16px;
+        transition: background 0.2s linear;
+        cursor: pointer;
+
+        &:hover{
+          background: $border-color;
+        }
+      }
+    }
+  }
+}
+
+.time-price{
+  list-style-type: none;
+  padding-left: 0;
+  padding-top: 25px;
+
+  li{
+    margin-bottom: 10px;
+
+    .custom-check{
+      margin-left: 10px;
+      margin-bottom: 0;
+    }
+  }
+
+  &__time{
+    display: inline-block;
+    vertical-align: middle;
+    width: 50%;
+    margin-bottom: 0;
+  }
+
+  input{
+    display: inline-block;
+    width: 23%;
+    max-width: 210px;
+    vertical-align: middle;
+  }
+  .deleteTime{
+    color: red;
+    cursor: pointer;
+  }
+}
+
+.block-add-btn{
+  @extend .clearfix;
+  padding-top: 5px;
+
+  &.border{
+    border-top: 2px solid $border-color;
+    padding-top: 15px;
+    margin-top: 15px;
+  }
+}
+
+.selectTimeControler{
+  width: 50%;
+}
+
+.btn-add-time{
+  border: 1px solid white;
+  /* display: block; */
+  padding: 7px;
+  width: fit-content;
+  background-color: #96bc4c;
+  cursor: pointer;
+  color: white;
+  margin-left: 50px;
+}
+
+.btn-add-time:hover{
+  background-color: #7a9840;
+}
+
+.short{
+  max-height: 110px;
+  overflow: hidden;
+}
+
+.collapse-ctrl{
+  cursor: pointer;
+}

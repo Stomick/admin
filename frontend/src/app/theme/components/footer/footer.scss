@@ -1,0 +1,45 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.navbar.az-navbar{
+    background-color: $default-color;
+    color: $dark-color;
+    border-bottom: 1px solid $grey-color;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 0;
+    padding: 20px 0 14px;
+    width: 100%;
+
+    &.no-border{
+        border: 0;
+    }
+
+    .navbar-brand{
+        width: 203px;
+        padding-top: 0;
+        padding-left: 5px;
+        padding-bottom: 0;
+    }
+    .navbar-nav>li{
+        position:relative;    
+        float: left;
+    }
+}
+
+.nav{
+    float: right;
+}
+
+.copy{
+    display: inline-block;
+    padding-top: 12px;
+    margin-right: 26px;
+    font-size: 13px;
+}
+
+
+@media (max-width: 767px){ 
+    .navbar.az-navbar .navbar-brand{
+        width: auto;
+    }
+}

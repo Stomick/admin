@@ -1,0 +1,22 @@
+.adminFastRemove{
+  margin-top: 10px;
+  list-style-type: none;
+  padding-left: 0;
+  border: 1px solid #999;
+
+  li{
+    display: block;
+    border-bottom: 1px solid #999;
+    padding: 11px 18px;
+
+
+    &:last-child{border-bottom: none}
+  }
+
+  .removeAdmin{
+    color: rgba(191, 23, 37, 0.8);
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+  }
+}

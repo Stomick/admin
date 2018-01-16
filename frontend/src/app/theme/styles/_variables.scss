@@ -1,0 +1,107 @@
+@import "skins/blue";
+
+$body-bg-color: #fff;
+$text-color: #242424;
+$gray: #555;
+$gray-light: #ccc;
+
+/**** App roots ****/
+$assets-root: 'assets/';
+$images-root: $assets-root + 'img/';
+$fonts-root: $assets-root + 'fonts/';
+
+
+/**** General ****/
+$font-family: 'Roboto', sans-serif;
+
+
+/**** Navbar ****/
+$navbar-text-color: $default-color;
+$navbar-height: 60px;
+
+
+/**** Sidebar ****/
+$sidebar-width: 230px;
+
+
+
+/**** Progress ****/
+$progress-border-radius: 0;
+$progress-height: 20px;
+
+
+/**** Fonts ****/
+$font-thin: 100;
+$font-light: 300;
+$font-normal: 400;
+$font-bold: 500;
+$font-bolder: 700;
+$font-ultraBold: 900;
+
+
+/**** Social icons ****/
+$facebook-color: #3b5998;
+$twitter-color: #55acee;
+$instagram-color: #8a3ab9;
+$pinterest-color: #c92228; 
+$google-color: #dd4b39;
+$linkedin-color: #0177B5;
+$github-color: #6b6b6b;
+$stackoverflow-color: #2F96E8;
+$dribble-color: #F26798;
+$behace-color: #0093FA;
+
+
+
+/**** Glyphicons ****/
+$glyphicons-halflings-class-prefix: glyphicon !default;
+$glyphicons-halflings-font-base-size: 12px !default;
+$glyphicons-halflings-include-bonus: false !default;
+
+
+
+
+//Set variables to be accessible for JS
+@import "../../../../node_modules/sass-to-js/sass/sass-to-js";
+
+$variablesMap: ( 
+  main-color: $main-color,
+  default-color: $default-color,
+  dark-color: $dark-color,
+  black-color: $black-color,
+  primary-color: $primary-color,
+  success-color: $success-color,
+  warning-color: $warning-color,
+  danger-color: $danger-color,
+  info-color: $info-color,
+  sidebar-bg-color: $sidebar-bg-color,
+  gray: $gray,
+  gray-light: $gray-light,
+  border-color: $border-color,
+);
+
+body::after {
+    content: sassToJs($variablesMap);
+    display: none;
+}
+
+
+
+// //Set variables to be accessible for JS
+// body::after {
+//     visibility: hidden;
+//     font-size: 0;
+//     content: "#{
+//         "{" +
+//             "\"main-color\": \"" + $main-color + "\"," +
+//             "\"default-color\": \"" + $default-color + "\"," +
+//             "\"primary-color\": \"" + $primary-color + "\"," +
+//             "\"success-color\": \"" + $success-color + "\"," +
+//             "\"info-color\": \"" + $info-color + "\"," +
+//             "\"warning-color\": \"" + $warning-color + "\"," +
+//             "\"danger-color\": \"" + $danger-color + "\"," +
+            
+//             "\"navbarHeight\": \"" + $navbar-height + "\"" +
+//         "}"
+//     }";
+// }

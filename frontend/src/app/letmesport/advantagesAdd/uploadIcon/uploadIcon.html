@@ -1,0 +1,6 @@
+<div class="upload-block">
+    <img class="advan-icon" [src]="newPointIcon.url">
+    <span [hidden]="newPointIcon.title == ''" class="advan-sign">{{newPointIcon.title}}</span>
+    <span [hidden]="newPointIcon.title != ''" class="advan-sign">Загрузить иконку</span>
+</div>
+<input class="upload-input" id="upload-icon" type="file" (change)="fileChange($event)" placeholder="Загрузить иконку" accept=".png,.jpg,.jpeg">

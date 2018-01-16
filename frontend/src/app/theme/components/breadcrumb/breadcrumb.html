@@ -1,0 +1,6 @@
+<div *ngIf="activePageTitle == 'Редактирование объекта' || !isAdmin" class="clearfix">
+    <ol class="breadcrumb">
+        <li *ngIf="isAdmin" routerLink="/pages/facilities-list/" class="breadcrumb-item">Список объектов</li>
+        <li *ngIf="isAdmin" class="breadcrumb-item active">{{ activePageTitle }}</li>
+    </ol>
+</div>

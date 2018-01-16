@@ -1,0 +1,33 @@
+<div class="worktime select-no-margin">
+    <label><ng-content></ng-content></label>
+</div>
+
+<div>
+    от
+    <select (change)="onChangeTime($event.target.value , 'startHour')">
+        <option *ngFor="let svH of workStartHour;" [value]="svH">{{svH}}</option>
+    </select>
+    <select (change)="onChangeTime($event.target.value ,  'startMin')">
+        <option *ngFor="let svM of workMin;" [value]="svM">{{svM}}</option>
+    </select>
+    до
+    <select (change)="onChangeTime($event.target.value , 'endHour')">
+        <option *ngFor="let evH of workEndHour;" [value]="evH">{{evH}}</option>
+    </select>
+    <select (change)="onChangeTime($event.target.value , 'endMin')">
+        <option *ngFor="let evM of workMin;" [value]="evM">{{evM}}</option>
+    </select>
+<span class="btn btn-succes btn-add-time" (click)="addWorkTime()">Добавить</span>
+</div>
+<ul class="time-price">
+    <li *ngFor="let time of workPossible;let i = index">
+        <label class="time-price__time"> с {{time.start_hour}} до {{time.end_hour}}</label>
+        <input type="number" class="rub-icon small-field" [disabled]="!time.working || isAdmin" [(ngModel)]="time.price" (keyup)="sendData()">
+        <label class="custom-check">
+        <input [disabled]="isAdmin" name="timeCheck" type="checkbox" [checked]="time.working" class="checkbox" (change)="changeTime(time)">
+        <span><i class="fa fa-check-square" aria-hidden="true"></i></span>
+            Работает
+        </label> | 
+        <span class="deleteTime" (click)="deleteTime(i)"><i aria-hidden="true" class="fa fa-times"></i></span>
+    </li>
+</ul>

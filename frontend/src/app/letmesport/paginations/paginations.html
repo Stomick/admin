@@ -1,0 +1,3 @@
+<ul class="paginations">
+    <li *ngFor="let item of pages" [ngClass]="{active: item == infoPages.currentPage}"><span (click)="stepPage(item)">{{item}}</span></li>
+</ul>

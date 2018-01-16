@@ -1,0 +1,49 @@
+<div class="c-align">
+    <div class="facilities">
+        <h2>Расписание {{centerName}}</h2>
+        <span class="order t_booking"><p>Забронирован и оплачен</p></span>
+        <span class="order t_cheked"><p>Заблокировано</p></span>
+        <span class="order t_blue"><p>Забронирован и не оплачен</p></span>
+        <timetableGround 
+            *ngFor="let obj of playgrounds" 
+            class="margin-bottom-25" 
+            [playgroundData]="obj" 
+            [days]="days" 
+            [bookings]="bookings" 
+            (refreshList)="getPlayCenterData()">
+        </timetableGround>
+    </div>
+    <div class="select-date">
+        <div class="row">
+            <div class="col-xs-12">
+                <span (click)="timeIntervalShow = !timeIntervalShow" class="select-date__toggle">Задать временной интервал</span>
+            </div>
+        </div>
+        <form [hidden]="!timeIntervalShow">
+            <div class="row">
+                <div class="col-xs-12 col-lg-3">
+                    <div class="form-group">
+                        <label>С</label>
+                        <input type="date" [(ngModel)]="date.enterDateStart" min="{{date.currentDay}}" max="{{date.enterDateEnd}}" (change)="convertDate(date.enterDateStart, true)"
+                               name="Start Date">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-lg-3">
+                    <div class="form-group">
+                        <label>по</label>
+                        <input type="date" [(ngModel)]="date.enterDateEnd" min="{{date.enterDateStart}}" (change)="convertDate(date.enterDateEnd, false)" name="End Date">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-lg-6">
+                    <div class="pull-right">
+                        <button (click)="getPlayCenterData()" class="btn btn-success">Поиск</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="facilities" *ngIf="bookings.length > 0">
+        <h2>Бронирования</h2>
+        <bookings [(bookings)]="bookings"></bookings>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<span (click)="hideModal()" class="modal-shadow"></span>
+<div class="custom-modal">
+    <h1 class="custom-modal__title">Добавить преимущество</h1>
+    <form>
+        <div class="row">
+            <div class="col-xs-12 col-md-5">
+                <div class="form-group position-relative">
+                    <uploadIcon [(newPointIcon)]="newPoint.icon"></uploadIcon>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-7">
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="newPoint.name" name="newPointName" placeholder="Введите название преимущества">
+                </div>
+            </div>
+        </div>
+        <div class="pull-right">
+            <ng-content></ng-content>
+            <!--<button class="btn btn-default" (click)="resetInputData()">Отмена</button>-->
+            <button class="btn btn-success" (click)="sentPoint()">Сохранить</button>
+        </div>
+    </form>
+</div>
