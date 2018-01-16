@@ -8,35 +8,42 @@
             </div>
             <form>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
                         <div class="form-group">
                             <input type="text" name="facilityName" [(ngModel)]="data.name" placeholder="Название" [disabled]="isAdmin">
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
                         <div class="form-group">
                             <input type="text" name="facilityPhone" [(ngModel)]="data.phone" placeholder="Телефон" [disabled]="isAdmin">
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
                         <div class="form-group">
                             <input type="text" name="facilityAddress" [(ngModel)]="data.address" placeholder="Адрес" [disabled]="isAdmin">
                         </div>
                     </div>
-
-                    <div class="col-xs-12 col-sm-6 col-lg-3"></div>
-
-                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
                         <div class="form-group">
                             <input type="text" name="facilityLatitude" [(ngModel)]="data.latitude" placeholder="Широта" [disabled]="isAdmin">
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
                         <div class="form-group">
                             <input type="text" name="facilityLongitude" [(ngModel)]="data.longitude" placeholder="Долгота" [disabled]="isAdmin">
                         </div>
                     </div>
-
+                    <div class="col-xs-12 col-sm-12 col-lg-12"></div>
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <div class="form-group">
+                            <input type="text" name="facilityStart-Work" [(ngModel)]="data.start_work" placeholder="Начало Работы" [disabled]="isAdmin">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <div class="form-group">
+                            <input type="text" name="facilityEnd-Work" [(ngModel)]="data.end_work" placeholder="Конец Работы" [disabled]="isAdmin">
+                        </div>
+                    </div>
                     <div class="col-xs-12">
                         <div class="form-group">
                             <textarea name='facilityDescription' [(ngModel)]="data.description" placeholder="Дополнительная информация" [disabled]="isAdmin"></textarea>
