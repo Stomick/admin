@@ -13,6 +13,7 @@ import { User } from './../models/user.model';
 export class UserListComponent implements OnInit{
     data: User[];
     infoPages: any = {};
+    pagePag: any = {};
     public modalDelete: boolean = false;
     public currentId: number = null;
 
@@ -24,15 +25,25 @@ export class UserListComponent implements OnInit{
         this.getList(1);
     }
 
-    getList(page){
+    getList(page) {
         this._userListService.getUser(page)
             .subscribe((data: any) => {
-            console.log(data);
                 this.data = data.items;
                 this.infoPages = data.meta;
+                this.pagePag = {
+                    'currentPage': '',
+                    'page': [],
+                };
+                for (let s = 0; s < data.meta.pageCount; s++) {
+                    this.pagePag.page[s] = s+1;
+                    if(s == data.meta.currentPage){
+                        this.pagePag.currentPage = 'active'
+                    }
+                }
+                window.console.log(this.pagePag.page);
             });
-    }
 
+    }
     showUserModal(index){
         this.data.forEach((item) => {
             item.showDrop = false;
@@ -65,8 +76,7 @@ export class UserListComponent implements OnInit{
         this.modalDelete = false;
     }
 
-    goToPage($event){
-        let targetPage = $event;
-        this.getList(targetPage);
+    goToPage(page){
+        this.getList(page);
     }
 }

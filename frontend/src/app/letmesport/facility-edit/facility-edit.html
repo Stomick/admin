@@ -25,6 +25,12 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-lg-4">
                         <div class="form-group">
+                            <div>Координаты</div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <div class="form-group">
                             <input type="text" name="facilityLatitude" [(ngModel)]="data.latitude" placeholder="Широта" [disabled]="isAdmin">
                         </div>
                     </div>
@@ -34,6 +40,11 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-lg-12"></div>
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <div class="form-group">
+                            <div>Время Работы</div>
+                        </div>
+                    </div>
                     <div class="col-xs-12 col-sm-6 col-lg-4">
                         <div class="form-group">
                             <input type="text" name="facilityStart-Work" [(ngModel)]="data.start_work" placeholder="Начало Работы" [disabled]="isAdmin">

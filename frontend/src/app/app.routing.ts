@@ -88,6 +88,13 @@ const appRoutes: Routes = [
           title: 'Список объектов'
         },
       },
+        {
+        path: 'user-booking',
+        component: FacilitiesListComponent,
+        data:{
+          title: 'Бронирования'
+        },
+      },
       {
         path: 'facility-edit/:id',
         component: FacilityEditComponent,

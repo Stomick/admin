@@ -146,7 +146,7 @@ class PayU extends Component
             $str .= $this->convData($v);
         }
 
-        return $str;//hash_hmac("md5", $str, self::$key);
+        return hash_hmac("md5", $str, self::$key);
     }
 
 #--------------------------------------------------------

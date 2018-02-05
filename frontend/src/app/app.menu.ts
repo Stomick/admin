@@ -27,12 +27,22 @@ export const menuItems = [
     order: 200
   },
   {
+    title: 'Бронирования',
+    routerLink: 'user-booking',
+    role: ['super-admin' , 'admis'],
+    icon: '',
+    selected: false,
+    expanded: false,
+    order: 300
+  },
+
+  {
     title: 'Преимущества',
     routerLink: 'advantages',
     role: ['super-admin'],
     icon: '',
     selected: false,
     expanded: false,
-    order: 300
+    order: 400
   },
 ];

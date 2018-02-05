@@ -31,7 +31,7 @@
                                 <div class="booking-info__item" *ngFor="let booking of user.bookings">
                                     <p class="booking-info__title">Бронирование № {{booking.id}}</p>
                                     <p class="booking-info__title">{{booking.sportCenterName}}</p>
-                                    <p class="booking-info__text"><span [hidden]="booking.day > 9">0</span>{{booking.day}}.<span [hidden]="booking.month > 9">0</span>{{booking.month}} c {{booking.hour}}:00 до {{booking.hour + 1}}:00, {{booking.playingFieldName}}<span *ngIf="booking.services.length > 0">, </span><span
+                                    <p class="booking-info__text"><span [hidden]="booking.day > 9">0</span>{{booking.day}}.<span [hidden]="booking.month > 9">0</span>{{booking.month}} c {{booking.start_hour}} до {{booking.end_hour}}, {{booking.playingFieldName}}<span *ngIf="booking.services.length > 0">, </span><span
                                                 *ngFor="let service of booking.services; let indexServ = index">{{service.name}}<span
                                                 *ngIf="indexServ != booking.services.length - 1">, </span></span>. Стоимость
                                         бронирования: {{booking.price}}₽</p>
@@ -48,7 +48,14 @@
             </tr>
             </tbody>
         </table>
-        <paginations *ngIf="infoPages.pageCount > 1" [(infoPages)]="infoPages" (goToPage)="goToPage($event)"></paginations>
+        <!-- <paginations *ngIf="infoPages.pageCount > 0" [(infoPages)]="infoPages" (goToPage)="goToPage($event)"></paginations>-->
+
+            <ul class="paginations">
+                <li class="{page.currentPage}" *ngFor="let pages of pagePag.page; let i = index">
+                    <span (click)="getList(pages)">{{pages}}</span>
+                </li>
+            </ul>
+
         <div class="clearfix">
             <div class="modal-wrap">
                 <span [hidden]="!modalDelete" (click)="modalDelete = !modalDelete" class="modal-shadow"></span>
