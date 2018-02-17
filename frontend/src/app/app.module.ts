@@ -132,7 +132,7 @@ import {RequisitesComponent} from './letmesport/requisites/requisites.component'
 import {TimeTableComponent} from './letmesport/timetable/timetable.component';
 import {TimeTableGroundComponent} from './letmesport/timetable/timetableGround/timetableGround.component';
 import {BookingsComponent} from './letmesport/timetable/bookings/bookings.component';
-
+import {UserBookingComponent} from "./letmesport/user-booking/user-booking.component";
 
 @NgModule({
   imports: [
@@ -232,7 +232,8 @@ import {BookingsComponent} from './letmesport/timetable/bookings/bookings.compon
     RequisitesComponent,
     TimeTableComponent,
     TimeTableGroundComponent,
-    BookingsComponent
+    BookingsComponent,
+    UserBookingComponent
   ],
   providers: [
     Title,

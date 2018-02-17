@@ -1,0 +1,41 @@
+<div class="c-align">
+    <div class="user-booking">
+            <div class="row" *ngIf="sportCentrList.length > 0 && sportCentrList.length != null">
+            <div class="col-xl-2">
+                <select (change)="getBoockingInMonths($event)" >
+                    <option disabled value="">"Выберете месяц"</option>
+                    <option  *ngFor="let months of sArrMonths; let i=index" value="{{i}}">{{months}}</option>
+                </select>
+            </div>
+            <div class="col-xl-8">
+                <select *ngIf="sportCentrList.length > 1" (change)="getPlayGround($event)" >
+                    <option value="">"Выберете спорт центр"</option>
+                    <option  *ngFor="let sportCentr of sportCentrList; let i=index" value="{{sportCentr.id}}">{{sportCentr.name}}</option>
+                </select>
+                <label *ngIf="sportCentrList.length == 1"><span>{{sportCentrList[0].name}}</span></label>
+            </div>
+            <div class="col-xl-2">
+                <select  *ngIf="playgroundArray.length > 1" (change)="getBooking($event)" >
+                    <option  value="">"Выберете Корт"</option>
+                    <option  *ngFor="let playG of playgroundArray; let i=index" value="{{playG.id}}">{{playG.name}}</option>
+                </select>
+                <label *ngIf="playgroundArray.length == 1"><span>{{playgroundArray[0].name}}</span></label>
+            </div>
+            <div class="col-sm-12 b_table">
+                <table class="user-timetable">
+                    <thead>
+                    <tr>
+                        <td *ngFor="let times of timeArray"><span>{{times}}</span></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let day of dayArray; let i=index">
+                        <td><span>{{day.day}}</span></td>
+                        <td *ngFor="let time of day.time"><span>{{time}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+    </div>
+</div>

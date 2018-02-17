@@ -60,6 +60,7 @@ import {AdminListComponent} from "./letmesport/adminList/adminList.component";
 import {UserListComponent} from "./letmesport/userList/userList.component";
 import {RequisitesComponent} from "./letmesport/requisites/requisites.component";
 import {TimeTableComponent} from "./letmesport/timetable/timetable.component";
+import {UserBookingComponent} from "./letmesport/user-booking/user-booking.component";
 
 import {AuthGuard} from './pages/login/authGuard/authGuard.service'
 
@@ -86,13 +87,6 @@ const appRoutes: Routes = [
         component: FacilitiesListComponent,
         data:{
           title: 'Список объектов'
-        },
-      },
-        {
-        path: 'user-booking',
-        component: FacilitiesListComponent,
-        data:{
-          title: 'Бронирования'
         },
       },
       {
@@ -163,6 +157,13 @@ const appRoutes: Routes = [
         component: TimeTableComponent,
         data:{
           title: 'Расписание и бронирование'
+        }
+      },
+      {
+        path: 'user-booking',
+        component: UserBookingComponent,
+        data:{
+          title: 'Бронирования',
         }
       },
     ]

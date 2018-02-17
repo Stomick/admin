@@ -1,0 +1,32 @@
+.b_table{
+  overflow-x: scroll;
+  margin-top: 32px;
+}
+table.user-timetable {
+  width: 100%;
+  font-size: 14px;
+  border: 1px solid black;
+  thead {
+    td {
+      border: 1px solid grey;
+      background-color: #f79a17;
+      span {
+        padding: 0 5px;
+      }
+    }
+    tr {
+
+    }
+  }
+  tbody {
+    td {
+      border: 1px solid grey;
+      &:first-child {
+        background-color: #B2B2B2;
+      }
+      span {
+        padding: 0 5px;
+      }
+    }
+  }
+}

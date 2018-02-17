@@ -1,7 +1,7 @@
 import {Component, ViewEncapsulation, OnInit, ViewContainerRef} from '@angular/core';
 import {ToastsManager} from "ng2-toastr/ng2-toastr";
 import {UserListService} from './userList.service';
-import { User } from './../models/user.model';
+import { User } from '../models/user.model';
 
 @Component({
     selector: 'userList',
@@ -37,7 +37,11 @@ export class UserListComponent implements OnInit{
                 for (let s = 0; s < data.meta.pageCount; s++) {
                     this.pagePag.page[s] = s+1;
                     if(s == data.meta.currentPage){
-                        this.pagePag.currentPage = 'active'
+                        this.pagePag.currentPage = 'active';
+                        window.console.log('Active');
+                    }
+                    else {
+                        window.console.log(s, data.meta.currentPage);
                     }
                 }
                 window.console.log(this.pagePag.page);

@@ -8,7 +8,7 @@ import {Facility} from "../models/facility.model";
     selector: 'facilities-list',
     encapsulation: ViewEncapsulation.None,
     templateUrl: 'facilities-list.html',
-    styles: ['facilities-list.scss'],
+    styleUrls: ['./facilities-list.scss'],
     providers: [FacilitiesListService]
 })
 

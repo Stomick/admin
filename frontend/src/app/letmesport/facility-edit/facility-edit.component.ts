@@ -17,7 +17,6 @@ import {Playground} from "../models/playground.model";
 
 export class FacilityEditComponent implements OnInit, OnDestroy {
     public router: Router;
-    id: number;
     data: any = '';
     advantagesList: any = [];
     services: Service[] = [];
@@ -26,6 +25,7 @@ export class FacilityEditComponent implements OnInit, OnDestroy {
     photoArray: any[] = [];
     logo: string = '';
     logoSrc: string = '';
+    id: number;
     private sub: any;
     isAdmin: boolean;
 
@@ -65,6 +65,7 @@ export class FacilityEditComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
         });

@@ -29,7 +29,7 @@ export const menuItems = [
   {
     title: 'Бронирования',
     routerLink: 'user-booking',
-    role: ['super-admin' , 'admis'],
+    role: ['super-admin' , 'admin'],
     icon: '',
     selected: false,
     expanded: false,
