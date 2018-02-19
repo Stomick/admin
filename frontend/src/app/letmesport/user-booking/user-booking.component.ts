@@ -3,7 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Response} from '@angular/http';
 import {ToastsManager} from "ng2-toastr/ng2-toastr";
 import {UserBookingService} from './user-booking.service';
-import { User } from '../models/user.model';
+import {User} from '../models/user.model';
 import {Service} from "../models/service.model";
 import {Playground} from "../models/playground.model";
 
@@ -15,17 +15,17 @@ import {Playground} from "../models/playground.model";
     providers: [UserBookingService]
 })
 
-export class UserBookingComponent implements OnInit{
+export class UserBookingComponent implements OnInit {
 
-    public users : User[];
-    public sArrMonths : any[];
+    public users: User[];
+    public sArrMonths: any[];
     public monthNames = [
         "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
         "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
     ];
     public router: Router;
-    public isAdmin : boolean;
-    public currentMonths : boolean;
+    public isAdmin: boolean;
+    public currentMonths: boolean;
     private sub: any;
     id: number;
     data: any = '';
@@ -37,13 +37,18 @@ export class UserBookingComponent implements OnInit{
     photoArray: any[] = [];
     logo: string = '';
     logoSrc: string = '';
-    days : number;
+    days: number;
     dayArray = [];
     timeArray = [];
-    idsport : number;
-    dateObj : any;
+    idsport: number;
+    dateObj = new Date();
     startT = '00:00';
     endT = '24:00';
+    selectMount = new Date().getUTCMonth();
+    bookings: any;
+    selectedPlayFields = 0;
+    playingFields: any;
+
     constructor(private _userbookingservice: UserBookingService,
                 private route: ActivatedRoute,
                 router: Router,
@@ -57,11 +62,12 @@ export class UserBookingComponent implements OnInit{
         }
     };
 
-    ngOnInit(){
+    ngOnInit() {
         this.dateObj = new Date();
+        this.selectMount = new Date().getUTCMonth();
         this.sArrMonths = [];
 
-        for(let i = 0; i < this.monthNames.length ; i++){
+        for (let i = 0; i < this.monthNames.length; i++) {
             this.sArrMonths[i] = this.monthNames[i];
         }
 
@@ -71,53 +77,72 @@ export class UserBookingComponent implements OnInit{
             this.id = +params['id'];
         });
 
-        this.setTable(this.dateObj.getUTCMonth() + 1);
+        this.setTable(this.dateObj.getUTCMonth());
 
-        window.console.log(this.timeArray , this.dayArray);
 
-        this._userbookingservice.getCenterList().subscribe((data: Response) =>{
+        this._userbookingservice.getCenterList().subscribe((data: Response) => {
             this.sportCentrList = data.json();
         });
     }
 
-    setTable(mnt = null){
+    setTable(mnt = null, books = null) {
+        window.console.log('SetTable');
 
+        if (books != undefined) {
+            this.bookings = books.bookings;
+            this.playingFields = books.playingFields[this.selectedPlayFields];
+        }
         let startT = parseInt(this.startT.split(':')[0]);
-        let endT = parseInt(this.endT.split(':')[1]) >= 30 ? parseInt(this.endT.split(':')[0]) + 1: parseInt(this.endT.split(':')[0]);
-        window.console.log( startT, endT);
+        let endT = parseInt(this.endT.split(':')[1]) >= 30 ? parseInt(this.endT.split(':')[0]) + 1 : parseInt(this.endT.split(':')[0]);
 
-        let curDay = this.daysInMonth(parseInt(mnt)+1, this.dateObj.getFullYear());
-        let  mounth = parseInt(mnt) < 9 ? '0' + (parseInt(mnt) + 1) : (parseInt(mnt) + 1);
+        let curDay = this.daysInMonth(parseInt(mnt) + 1, this.dateObj.getFullYear());
+        let mounth = parseInt(mnt) < 9 ? '0' + (parseInt(mnt) + 1) : (parseInt(mnt) + 1);
+
         this.dayArray = [];
-        for( let d = 0; d < curDay ; d++) {
-            this.dayArray[d] = [];
-            this.dayArray[d]['day'] = d < 9 ? '0' + (d + 1) + '.' + mounth + '.' + this.dateObj.getFullYear() : (d + 1) + '.' + mounth + '.' + this.dateObj.getFullYear().toString();
-            this.dayArray[d]['time'] = [];
-            for (let t = 0; t < 48; t++){
-                this.dayArray[d]['time'][t] = '';
+        let boolsMin = false;
+        this.timeArray = [];
+
+
+        for (let t = startT, index = 0; t < endT; index++) {
+            if (index != 0) {
+                if (boolsMin == false) {
+                    this.timeArray[index] = t < 10 ? '0' + t + ':' + '00' : t + ':' + '00';
+                    boolsMin = true;
+                }
+                else {
+                    this.timeArray[index] = t < 10 ? '0' + t + ':' + '30' : t + ':' + '30';
+                    boolsMin = false;
+                    t++;
+                }
+            } else {
+                this.timeArray[index] = '';
             }
         }
-        let boolsMin = false;
+        this.timeArray[this.timeArray.length] = this.endT;
 
-        for (let t = startT, i = 0; t < endT; i++){
-             if(i != 0) {
-                 if (boolsMin == false) {
-                     this.timeArray[i] = t < 10 ? '0' + t + ':' + '00': t + ':' + '00';
-                     boolsMin = true;
-                 }
-                 else {
-                     this.timeArray[i] = t < 10 ? '0' + t + ':' + '30': t + ':' + '30';
-                     boolsMin = false;
-                     t++;
-                 }
-             }else {
-                 this.timeArray[i] = '';
-             }
+        for (let d = 0; d < curDay; d++) {
+            this.dayArray[d] = [];
+            let day = d < 9 ? '0' + (d + 1) + '.' + mounth + '.' + this.dateObj.getFullYear() : (d + 1) + '.' + mounth + '.' + this.dateObj.getFullYear().toString();
+            let dateN = new Date(day.split('.').reverse().join("-"));
 
+            this.dayArray[d]['day'] = {
+                'data': day,
+                'type': dateN.getDay() == 0 || dateN.getDay() == 6 ? 'weekend' : 'work'
+            };
+
+            this.dayArray[d]['time'] = [];
+            for (let t = 0; t < this.timeArray.length - 1; t++) {
+                this.dayArray[d]['time'][t] = {
+                    'style': books != undefined ? this.checkTime(day, t, this.dayArray[d].day.type, this.timeArray[t]) : '',
+                    'info': ''
+                };
+            }
         }
+
+
     }
 
-    daysInMonth (month, year) {
+    daysInMonth(month, year) {
         return new Date(year, month, 0).getDate();
     }
 
@@ -131,11 +156,15 @@ export class UserBookingComponent implements OnInit{
             }
         })
     }
-    getPlayGround($event){
-        let start : string;
-        let end : string;
-        this.idsport = $event.target.value;
+
+    getPlayGround($event, idsport) {
+        let start: string;
+        let end: string;
+        let setMontch = this.selectMount;
+
+        this.idsport = $event != null ? $event.target.value : idsport;
         this.playgroundArray = [];
+
         this._userbookingservice.getAll(this.idsport)
             .subscribe((data: Response) => {
                 this.data = data.json();
@@ -154,20 +183,68 @@ export class UserBookingComponent implements OnInit{
                 if (this.playgroundArray.length > 0 && this.playgroundArray) {
                     this.playGroundIs = true
                 }
-                if(this.playgroundArray.length == 0){
-                    this.getBooking();
-                }
-                this.setTable(this.dateObj.getUTCMonth() + 1);
+                this.bookings = this._userbookingservice.getBooking(this.idsport,
+                    new Date(this.dateObj.getFullYear(), setMontch, 0).getTime(),
+                    new Date(this.dateObj.getFullYear(), setMontch,
+                        this.daysInMonth(setMontch, this.dateObj.getFullYear())).getTime())
+                    .subscribe((data: Response) => {
+                        this.setTable(setMontch, data.json());
+                    });
             });
-
     }
 
-    getBooking($event = null){
-        let startDate = new Date(this.dateObj.getFullYear() , this.dateObj.getMonth(),0);
-        let endDate = new Date(this.dateObj.getFullYear() , this.dateObj.getMonth(),this.daysInMonth(this.dateObj.getUTCMonth() + 1 , this.dateObj.getFullYear()));
-        this._userbookingservice.getBooking(this.idsport, startDate.getTime,endDate.getTime());
+    getBookingInPlayGround($event) {
+        this.selectedPlayFields = $event.target.value;
+        let setMontch = this.selectMount == 0 ? this.dateObj.getUTCMonth() : this.selectMount;
+        this.setTable(setMontch);
     }
-    getBoockingInMonths($event){
-        this.setTable($event.target.value);
+
+    getBooking(sportcenterId, start, end) {
+        this._userbookingservice.getBooking(sportcenterId, start, end)
+            .subscribe((data: Response) => {
+                return this.bookings = data.json();
+            });
+    }
+
+    getBoockingInMonths($event) {
+        this.selectMount = $event.target.value;
+        this.idsport == undefined ? this.setTable(this.selectMount) : this.getPlayGround(null, this.idsport);
+    }
+
+    checkTime(Day, indexTime, type, time) {
+        let t_time = new Date(Day.split('.').reverse().join("-") + " " + time).getTime();let time_start = true;
+        let start_string_time = '';
+        let end_string_time = '';
+
+        if (this.playingFields.availableTime.length > 0) {
+            let aval = this.playingFields.availableTime;
+            for (let a = 0; a < aval.length; a++) {
+                if (aval[a].type == type) {
+                   if(time_start){
+                       window.console.log((aval[a].start_hour.split(":")[0] - 1) + ":" + aval[a].start_hour.split(":")[1]);
+                       start_string_time = (aval[a].start_hour.split(":")[0] - 1) +":"+ aval[a].start_hour.split(":")[1];
+                       end_string_time = aval[a].end_hour;
+                       time_start = false;
+                   }else {
+                       end_string_time = aval[a].end_hour;
+                   }
+                }
+            }
+            let s_time = new Date(Day.split('.').reverse().join("-") + " " + start_string_time).getTime();
+            let e_time = new Date(Day.split('.').reverse().join("-") + " " + end_string_time).getTime();
+            if (t_time <= s_time || t_time >= e_time) {
+                return 't_disabled';
+            }
+        }
+
+        if (this.bookings.length > 0) {
+            window.console.log();
+        }
+
+        if (this.playingFields.length > 0) {
+            window.console.log(this.playingFields[this.selectedPlayFields]);
+        }
+
     }
 }
+

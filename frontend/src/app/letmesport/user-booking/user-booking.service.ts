@@ -53,7 +53,7 @@ export class UserBookingService {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
         return this._http
-            .get(API_PATH + 'bookings/schedule?id=' + id + '&startDate=' + startDate + '&endDate=' + endDate, {headers: headers}).map(this.parseData)
+            .get(API_PATH + 'bookings/schedule?id=' + id + '&startDate=' + startDate + '&endDate=' + endDate, {headers: headers});//.map(this.parseData)
     }
 
 

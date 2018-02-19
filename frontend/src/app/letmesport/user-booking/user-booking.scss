@@ -2,6 +2,40 @@
   overflow-x: scroll;
   margin-top: 32px;
 }
+
+.info-block {
+
+  display: inline-block;
+  text-align: center;
+  margin: 15px 0;
+  p {
+    margin: 4px 13px;
+  }
+
+  .order{
+    display: inline-block;
+    width: max-content;
+    &.t_cheked {
+
+      color: #000;
+      background-color: #f9ff00 !important;
+    }
+    &.t_booking {
+      color: #000;
+      background-color: #c92228;
+    }
+
+    &.t_blue {
+      background-color: #1becd9;
+      color: #000000;
+    }
+    &.t_disabled {
+      background-color: #6b6b6b;
+      color: #000000;
+    }
+  }
+}
+
 table.user-timetable {
   width: 100%;
   font-size: 14px;
@@ -20,12 +54,36 @@ table.user-timetable {
   }
   tbody {
     td {
+      cursor: pointer;
       border: 1px solid grey;
-      &:first-child {
-        background-color: #B2B2B2;
+
+      &.work{
+        background-color: lightyellow;
+      }
+      &.weekend{
+        background-color: greenyellow;
+      }
+      &.t_cheked {
+
+        color: #000;
+        background-color: #f9ff00 !important;
+      }
+      &.t_booking {
+        color: #000;
+        background-color: #c92228;
+      }
+
+      &.t_blue {
+        background-color: #1becd9;
+        color: #000000;
       }
       span {
         padding: 0 5px;
+
+      }
+      &.t_disabled {
+        background-color: #6b6b6b;
+        color: #000000;
       }
     }
   }
