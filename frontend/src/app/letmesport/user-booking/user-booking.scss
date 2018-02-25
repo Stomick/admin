@@ -53,10 +53,12 @@ table.user-timetable {
     }
   }
   tbody {
+    tr:hover{
+      border: dotted #0004ff;
+    }
     td {
       cursor: pointer;
       border: 1px solid grey;
-
       &.work{
         background-color: lightyellow;
       }

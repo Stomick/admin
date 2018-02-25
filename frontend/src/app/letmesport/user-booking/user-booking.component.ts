@@ -89,9 +89,15 @@ export class UserBookingComponent implements OnInit {
         window.console.log('SetTable');
 
         if (books != undefined) {
-            this.bookings = books.bookings;
+
+            this.bookings = [];
+            for (let i in books.bookings){
+                window.console.log(books.bookings[i]);
+            }
+
             this.playingFields = books.playingFields[this.selectedPlayFields];
         }
+
         let startT = parseInt(this.startT.split(':')[0]);
         let endT = parseInt(this.endT.split(':')[1]) >= 30 ? parseInt(this.endT.split(':')[0]) + 1 : parseInt(this.endT.split(':')[0]);
 
@@ -183,13 +189,14 @@ export class UserBookingComponent implements OnInit {
                 if (this.playgroundArray.length > 0 && this.playgroundArray) {
                     this.playGroundIs = true
                 }
-                this.bookings = this._userbookingservice.getBooking(this.idsport,
+                this._userbookingservice.getBooking(this.idsport,
                     new Date(this.dateObj.getFullYear(), setMontch, 0).getTime(),
                     new Date(this.dateObj.getFullYear(), setMontch,
                         this.daysInMonth(setMontch, this.dateObj.getFullYear())).getTime())
                     .subscribe((data: Response) => {
                         this.setTable(setMontch, data.json());
                     });
+
             });
     }
 
