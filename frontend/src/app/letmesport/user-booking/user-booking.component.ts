@@ -262,6 +262,7 @@ export class UserBookingComponent implements OnInit {
             for (let i = 0; i < this.bookings.length; i++) {
                 if (dateN === this.bookings[i].bookingDate.date) {
                     if (this.bookings[i].bookingDate.time.includes(time)) {
+                        window.console.log(time);
                         return 't_booking';
                     }
                 }
