@@ -6,6 +6,8 @@ import {UserBookingService} from './user-booking.service';
 import {User} from '../models/user.model';
 import {Service} from "../models/service.model";
 import {Playground} from "../models/playground.model";
+import {el} from "@angular/platform-browser/testing/browser_util";
+import {windowWhen} from "rxjs/operator/windowWhen";
 
 @Component({
     selector: 'user-booking',
@@ -48,6 +50,11 @@ export class UserBookingComponent implements OnInit {
     bookings: any;
     selectedPlayFields = 0;
     playingFields: any;
+    modalBookinAdd = false;
+    modalAlert = false;
+    bookingSetStatus = false;
+    addBookingDate: any;
+    modalInfo = false;
 
     constructor(private _userbookingservice: UserBookingService,
                 private route: ActivatedRoute,
@@ -89,12 +96,7 @@ export class UserBookingComponent implements OnInit {
         window.console.log('SetTable');
 
         if (books != undefined) {
-
-            this.bookings = [];
-            for (let i in books.bookings){
-                window.console.log(books.bookings[i]);
-            }
-
+            this.bookings = books.bookings;
             this.playingFields = books.playingFields[this.selectedPlayFields];
         }
 
@@ -139,15 +141,26 @@ export class UserBookingComponent implements OnInit {
             this.dayArray[d]['time'] = [];
             for (let t = 0; t < this.timeArray.length - 1; t++) {
                 this.dayArray[d]['time'][t] = {
-                    'style': books != undefined ? this.checkTime(day, t, this.dayArray[d].day.type, this.timeArray[t]) : '',
-                    'info': ''
+                    'style':  books != undefined ? this.checkTime(day, t, this.dayArray[d].day.type, this.timeArray[t]) : '',
+                    'info': books != undefined ? this.setBookingInTable(day, this.timeArray[t]):''
                 };
             }
         }
 
 
     }
-
+    setBookingInTable(day, time){
+        let dateN = day.split('.').reverse().join("-");
+        if (this.bookings != undefined) {
+            for (let i = 0; i < this.bookings.length; i++) {
+                if (dateN === this.bookings[i].bookingDate.date) {
+                    if (this.bookings[i].bookingDate.time.includes(time)) {
+                        return this.bookings[i].id;
+                    }
+                }
+            }
+        }
+    }
     daysInMonth(month, year) {
         return new Date(year, month, 0).getDate();
     }
@@ -187,7 +200,8 @@ export class UserBookingComponent implements OnInit {
                 this.logoSrc = this.data.logoSrc;
                 this.logo = this.data.logo;
                 if (this.playgroundArray.length > 0 && this.playgroundArray) {
-                    this.playGroundIs = true
+                    this.playGroundIs = true;
+                    this.bookingSetStatus = true;
                 }
                 this._userbookingservice.getBooking(this.idsport,
                     new Date(this.dateObj.getFullYear(), setMontch, 0).getTime(),
@@ -219,7 +233,8 @@ export class UserBookingComponent implements OnInit {
     }
 
     checkTime(Day, indexTime, type, time) {
-        let t_time = new Date(Day.split('.').reverse().join("-") + " " + time).getTime();let time_start = true;
+        let t_time = new Date(Day.split('.').reverse().join("-") + " " + time).getTime();
+        let time_start = true;
         let start_string_time = '';
         let end_string_time = '';
 
@@ -227,14 +242,13 @@ export class UserBookingComponent implements OnInit {
             let aval = this.playingFields.availableTime;
             for (let a = 0; a < aval.length; a++) {
                 if (aval[a].type == type) {
-                   if(time_start){
-                       window.console.log((aval[a].start_hour.split(":")[0] - 1) + ":" + aval[a].start_hour.split(":")[1]);
-                       start_string_time = (aval[a].start_hour.split(":")[0] - 1) +":"+ aval[a].start_hour.split(":")[1];
-                       end_string_time = aval[a].end_hour;
-                       time_start = false;
-                   }else {
-                       end_string_time = aval[a].end_hour;
-                   }
+                    if (time_start) {
+                        start_string_time = (aval[a].start_hour.split(":")[0] - 1) + ":" + aval[a].start_hour.split(":")[1];
+                        end_string_time = aval[a].end_hour;
+                        time_start = false;
+                    } else {
+                        end_string_time = aval[a].end_hour;
+                    }
                 }
             }
             let s_time = new Date(Day.split('.').reverse().join("-") + " " + start_string_time).getTime();
@@ -243,9 +257,15 @@ export class UserBookingComponent implements OnInit {
                 return 't_disabled';
             }
         }
-
-        if (this.bookings.length > 0) {
-            window.console.log();
+        if (this.bookings != undefined) {
+            let dateN = Day.split('.').reverse().join("-");
+            for (let i = 0; i < this.bookings.length; i++) {
+                if (dateN === this.bookings[i].bookingDate.date) {
+                    if (this.bookings[i].bookingDate.time.includes(time)) {
+                        return 't_booking';
+                    }
+                }
+            }
         }
 
         if (this.playingFields.length > 0) {
@@ -253,5 +273,29 @@ export class UserBookingComponent implements OnInit {
         }
 
     }
+    showAlert(){
+        this.modalAlert = true;
+    }
+    showBookinEdit(date){
+        window.console.log(this.dayArray);
+
+        this.addBookingDate = date;
+        this.modalBookinAdd = true;
+    }
+    addBook(){
+        this.modalBookinAdd = false;
+        window.console.log();
+    }
+    showInfo(id){
+        if (this.bookings != undefined) {
+            for (let i = 0; i < this.bookings.length; i++) {
+                if (id === this.bookings[i].id) {
+                    window.console.log(this.bookings[i]);
+                }
+            }
+        }
+        this.modalInfo = true;
+    }
 }
+
 

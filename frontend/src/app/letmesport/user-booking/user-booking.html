@@ -35,12 +35,51 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let day of dayArray; let i=index">
-                        <td class="{{day.day.type}}"><span>{{day.day.data}}</span></td>
-                        <td class="{{time.style}}" *ngFor="let time of day.time"><span>{{time.info}}</span></td>
+                        <td (click)=" !bookingSetStatus ? showAlert() : showBookinEdit(day.day.data)" class="{{day.day.type}}"><span>{{day.day.data}}</span></td>
+                        <td (click)="time.info ? showInfo(time.info): ''" class="{{time.style}}" *ngFor="let time of day.time"><span></span></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             </div>
+    </div>
+</div>
+<div class="clearfix">
+    <div class="modal-wrap">
+        <span [hidden]="!modalBookinAdd" (click)="modalBookinAdd = !modalBookinAdd" class="modal-shadow"></span>
+        <div class="custom-modal" [hidden]="!modalBookinAdd">
+            <h2 class="custom-modal__title">Забронировать на  {{addBookingDate}}</h2>
+            <form>
+                <div class="pull-left">
+                    <span>Имя:</span><input class="pull-right" name="name" value=""/>
+                    <br/>
+                    <span>Номер телефона</span><input class="pull-right" type="tel" name="name" value=""/>
+                    <br/>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-danger" (click)="addBook()">Забронировать</button>
+                    <button class="btn btn-default" (click)="modalBookinAdd = !modalBookinAdd">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix">
+    <div class="modal-wrap">
+        <span [hidden]="!modalAlert" (click)="modalAlert = !modalAlert" class="modal-shadow"></span>
+        <div class="custom-modal" [hidden]="!modalAlert">
+            <h2 class="custom-modal__title">Площадка не выбрана</h2>
+            <h2 class="custom-modal__title">или нет свободного времени</h2>
+            <button class="btn btn-default" (click)="modalAlert = !modalAlert">Ок</button>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <div class="modal-wrap">
+        <span [hidden]="!modalInfo" (click)="modalInfo = !modalInfo" class="modal-shadow"></span>
+        <div class="custom-modal" [hidden]="!modalInfo">
+            <button class="btn btn-default" (click)="modalInfo = !modalInfo">Ок</button>
+        </div>
     </div>
 </div>
