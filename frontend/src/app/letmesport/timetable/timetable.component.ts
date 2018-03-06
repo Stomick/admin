@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
-import { TimeTableService } from './timetable.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {TimeTableService} from './timetable.service';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'timetable',
@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
     providers: [TimeTableService]
 })
 
-export class TimeTableComponent implements OnInit, OnDestroy{
+export class TimeTableComponent implements OnInit, OnDestroy {
     public router: Router;
     private sub: any;
     id: number;
@@ -19,6 +19,7 @@ export class TimeTableComponent implements OnInit, OnDestroy{
     date: any = {
         startDate: '',
         endDate: '',
+        sendDate: '',
         sendStartDate: 0,
         sendEndDate: 0,
         enterDateStart: '',
@@ -32,13 +33,13 @@ export class TimeTableComponent implements OnInit, OnDestroy{
     };
 
 
-    constructor(private route: ActivatedRoute, router:Router, public timeTableService: TimeTableService){
+    constructor(private route: ActivatedRoute, router: Router, public timeTableService: TimeTableService) {
         this.router = router;
     }
 
-    getDataObj(startDate, endDate){
+    getDataObj(startDate, endDate) {
         window.console.log(startDate, endDate);
-        this.timeTableService.getBooking(this.id, startDate, endDate).subscribe((data) =>{
+        this.timeTableService.getBooking(this.id, startDate, endDate).subscribe((data) => {
             this.centerName = data.sportCenterName;
             this.playgrounds = data.playingFields;
             this.bookings = data.bookings;
@@ -47,46 +48,48 @@ export class TimeTableComponent implements OnInit, OnDestroy{
         })
     }
 
-    getPlayCenterData(){
-        this.date.sendStartDate = this.date.startDate.setHours(0,0,0,0) - this.date.timeZone;
-        this.date.sendEndDate = this.date.endDate.setHours(0,0,0,0) - this.date.timeZone;
-        window.console.log(this.date);
+    getPlayCenterData() {
+        this.date.sendStartDate = this.date.startDate.setHours(0, 0, 0, 0) - this.date.timeZone;
+        this.date.sendEndDate = this.date.endDate.setHours(0, 0, 0, 0) - this.date.timeZone;
+        let end = this.date.enterDateEnd.split("-");
+
         this.date.timeZone = 0;
-        this.getDataObj(this.date.sendStartDate, this.date.sendEndDate);
+        this.getDataObj(new Date('2018-02-01').getTime(), new Date(end[0] + '-' + end[1] + '-' + (parseInt(end[2]) + 1)).getTime());
     }
 
-    convertDate(date, from){
-        if(from){
-            this.date.startDate = new Date(date.substr(0,4), parseInt(date.substr(5,2)) - 1, parseInt(date.substr(8,2)));
+    convertDate(date, from) {
+        if (from) {
+            this.date.startDate = new Date(date.substr(0, 4), parseInt(date.substr(5, 2)) - 1, parseInt(date.substr(8, 2)));
         }
-        else{
-            this.date.endDate = new Date(date.substr(0,4), parseInt(date.substr(5,2)) - 1, parseInt(date.substr(8,2)));
+        else {
+            this.date.endDate = new Date(date.substr(0, 4), parseInt(date.substr(5, 2)) - 1, parseInt(date.substr(8, 2)));
         }
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
         });
-        this.date.timeZone = new Date().getTimezoneOffset()*60*1000;
+        this.date.timeZone = new Date().getTimezoneOffset() * 60 * 1000;
         this.date.startDate = new Date();
         let month = this.date.startDate.getMonth() + 1;
         let day = this.date.startDate.getDate();
         let nextDay = day + 2;
-        if(month < 10)
+        if (month < 10)
             month = '0' + month;
-        if(day < 10)
+        if (day < 10)
             day = '0' + day;
-        if(nextDay < 10)
+        if (nextDay < 10)
             nextDay = '0' + nextDay;
         this.date.enterDateStart = this.date.startDate.getFullYear() + '-' + month + '-' + day;
         this.date.enterDateEnd = this.date.startDate.getFullYear() + '-' + month + '-' + nextDay;
         this.date.currentDay = this.date.startDate.getFullYear() + '-' + month + '-' + day;
         this.date.endDate = new Date();
-        this.date.endDate.setDate(this.date.startDate.getDate()+1);
-
+        this.date.endDate.setDate(this.date.startDate.getDate() + 1);
+        this.date.sendDate = new Date().setDate(this.date.startDate.getDate() + 2)
         this.getPlayCenterData();
     }
 
-    ngOnDestroy(){}
+    ngOnDestroy() {
+    }
 }

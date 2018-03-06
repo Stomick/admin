@@ -78,7 +78,16 @@
     <div class="modal-wrap">
         <span [hidden]="!modalInfo" (click)="modalInfo = !modalInfo" class="modal-shadow"></span>
         <div class="custom-modal" [hidden]="!modalInfo">
+            <template [ngIf]="bookId != undefined">
+            <h3>Бронирование № {{bookId.id}}</h3>
+            <p class="create-from">Забронирован через <span [hidden]="bookId.adminBooking">приложение</span><span [hidden]="!bookId.adminBooking">панель администратора</span></p>
+                <p><span class="col-lg-2">Имя : </span>{{bookId.userName}}</p>
+            <p><span class="col-lg-2">Телефон : </span>{{bookId.phone}}</p>
+            <p><span class="col-lg-2">Время : </span>{{bookId.bookingDate.date}} - C {{bookId.bookingDate.time[0]}} до {{bookId.bookingDate.time[bookId.bookingDate.time.length - 1]}}<p>
+            <p [ngIf]="bookId.service && bookId.service.length > 0" *ngFor="let service of bookId.service">{{service.name}}</p>
+            <p class="modal-booking__price">Стоимость бронирования: {{bookId.price}}</p>
             <button class="btn btn-default" (click)="modalInfo = !modalInfo">Ок</button>
+            </template>
         </div>
     </div>
 </div>

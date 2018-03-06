@@ -55,6 +55,7 @@ export class UserBookingComponent implements OnInit {
     bookingSetStatus = false;
     addBookingDate: any;
     modalInfo = false;
+    bookId : any;
 
     constructor(private _userbookingservice: UserBookingService,
                 private route: ActivatedRoute,
@@ -254,7 +255,11 @@ export class UserBookingComponent implements OnInit {
             for (let a = 0; a < aval.length; a++) {
                 if (aval[a].type == type) {
                     if (time_start) {
-                        start_string_time = (aval[a].start_hour.split(":")[0] - 1) + ":" + aval[a].start_hour.split(":")[1];
+                        if(aval[a].start_hour.split(":")[1] == '30'){
+                            start_string_time = (aval[a].start_hour.split(":")[0]) + ":00";
+                        }else {
+                            start_string_time = (aval[a].start_hour.split(":")[0] - 1) + ":30";
+                        }
                         end_string_time = aval[a].end_hour;
                         time_start = false;
                     } else {
@@ -262,9 +267,10 @@ export class UserBookingComponent implements OnInit {
                     }
                 }
             }
+
             let s_time = new Date(Day.split('.').reverse().join("-") + " " + start_string_time).getTime();
             let e_time = new Date(Day.split('.').reverse().join("-") + " " + end_string_time).getTime();
-            if (t_time < s_time || t_time > e_time) {
+            if (t_time <= s_time || t_time > e_time) {
                 return 't_disabled';
             }
         }
@@ -273,7 +279,6 @@ export class UserBookingComponent implements OnInit {
             for (let i = 0; i < this.bookings.length; i++) {
                 if (dateN === this.bookings[i].bookingDate.date) {
                     if (this.bookings[i].bookingDate.time.includes(time)) {
-                        window.console.log(time);
                         return 't_booking';
                     }
                 }
@@ -309,7 +314,7 @@ export class UserBookingComponent implements OnInit {
         if (this.bookings != undefined) {
             for (let i = 0; i < this.bookings.length; i++) {
                 if (id === this.bookings[i].id) {
-                    window.console.log(this.bookings[i]);
+                   this.bookId = this.bookings[i];
                 }
             }
             this.modalInfo = true;
