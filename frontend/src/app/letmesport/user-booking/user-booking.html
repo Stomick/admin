@@ -35,8 +35,7 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let day of dayArray; let i=index">
-                        <td (click)=" !bookingSetStatus ? showAlert() : showBookinEdit(day.day.data)" class="{{day.day.type}}"><span>{{day.day.data}}</span></td>
-                        <td (click)="time[i+1].info ? showInfo(day.time[i+1].info): ''" class="{{day.time[i+1].style}}" *ngFor="let time of day.time;let i=index"><span></span></td>
+                        <td (click)="time.info ? showInfo(time.info):  showBookinEdit(day.day.data)" class="{{time.style}}" *ngFor="let time of day.time;let i=index"><span>{{i==0?time.info:''}}</span></td>
                     </tr>
                     </tbody>
                 </table>

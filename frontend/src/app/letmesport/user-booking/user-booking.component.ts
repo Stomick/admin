@@ -140,16 +140,25 @@ export class UserBookingComponent implements OnInit {
 
             this.dayArray[d]['time'] = [];
             for (let t = 0; t < this.timeArray.length - 1; t++) {
-                this.dayArray[d]['time'][t] = {
-                    'style':  books != undefined ? this.checkTime(day, t, this.dayArray[d].day.type, this.timeArray[t]) : '',
-                    'info': books != undefined ? this.setBookingInTable(day, this.timeArray[t]):''
-                };
+                if(t==0){
+                    this.dayArray[d]['time'][t] = {
+                        'style': dateN.getDay() == 0 || dateN.getDay() == 6 ? 'weekend' : 'work',
+                        'info': day,
+                    };
+                }
+                else {
+                    this.dayArray[d]['time'][t] = {
+                        'style': books != undefined ? this.checkTime(day, t, this.dayArray[d].day.type, this.timeArray[t]) : '',
+                        'info': books != undefined ? this.setBookingInTable(day, this.timeArray[t]) : '',
+                    };
+                }
             }
         }
 
 
     }
-    setBookingInTable(day, time){
+
+    setBookingInTable(day, time) {
         let dateN = day.split('.').reverse().join("-");
         if (this.bookings != undefined) {
             for (let i = 0; i < this.bookings.length; i++) {
@@ -161,6 +170,7 @@ export class UserBookingComponent implements OnInit {
             }
         }
     }
+
     daysInMonth(month, year) {
         return new Date(year, month, 0).getDate();
     }
@@ -203,6 +213,7 @@ export class UserBookingComponent implements OnInit {
                     this.playGroundIs = true;
                     this.bookingSetStatus = true;
                 }
+                window.console.log(new Date(this.dateObj.getFullYear(), setMontch, 0));
                 this._userbookingservice.getBooking(this.idsport,
                     new Date(this.dateObj.getFullYear(), setMontch, 0).getTime(),
                     new Date(this.dateObj.getFullYear(), setMontch,
@@ -253,7 +264,7 @@ export class UserBookingComponent implements OnInit {
             }
             let s_time = new Date(Day.split('.').reverse().join("-") + " " + start_string_time).getTime();
             let e_time = new Date(Day.split('.').reverse().join("-") + " " + end_string_time).getTime();
-            if (t_time <= s_time || t_time >= e_time) {
+            if (t_time < s_time || t_time > e_time) {
                 return 't_disabled';
             }
         }
@@ -274,28 +285,38 @@ export class UserBookingComponent implements OnInit {
         }
 
     }
-    showAlert(){
+
+    showAlert() {
         this.modalAlert = true;
     }
-    showBookinEdit(date){
-        window.console.log(this.dayArray);
 
-        this.addBookingDate = date;
-        this.modalBookinAdd = true;
+    showBookinEdit(date) {
+        if (this.bookings != undefined) {
+            this.addBookingDate = date;
+            this.modalBookinAdd = true;
+        }else{
+            this.bookingSetStatus = true;
+        }
     }
-    addBook(){
+
+    addBook() {
         this.modalBookinAdd = false;
         window.console.log();
     }
-    showInfo(id){
+
+    showInfo(id) {
+
         if (this.bookings != undefined) {
             for (let i = 0; i < this.bookings.length; i++) {
                 if (id === this.bookings[i].id) {
                     window.console.log(this.bookings[i]);
                 }
             }
+            this.modalInfo = true;
+        }else{
+            this.bookingSetStatus = true;
         }
-        this.modalInfo = true;
+
     }
 }
 

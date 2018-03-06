@@ -37,6 +37,7 @@ export class TimeTableComponent implements OnInit, OnDestroy{
     }
 
     getDataObj(startDate, endDate){
+        window.console.log(startDate, endDate);
         this.timeTableService.getBooking(this.id, startDate, endDate).subscribe((data) =>{
             this.centerName = data.sportCenterName;
             this.playgrounds = data.playingFields;
@@ -49,6 +50,7 @@ export class TimeTableComponent implements OnInit, OnDestroy{
     getPlayCenterData(){
         this.date.sendStartDate = this.date.startDate.setHours(0,0,0,0) - this.date.timeZone;
         this.date.sendEndDate = this.date.endDate.setHours(0,0,0,0) - this.date.timeZone;
+        window.console.log(this.date);
         this.date.timeZone = 0;
         this.getDataObj(this.date.sendStartDate, this.date.sendEndDate);
     }
@@ -70,7 +72,7 @@ export class TimeTableComponent implements OnInit, OnDestroy{
         this.date.startDate = new Date();
         let month = this.date.startDate.getMonth() + 1;
         let day = this.date.startDate.getDate();
-        let nextDay = this.date.startDate.getDate() + 1;
+        let nextDay = day + 2;
         if(month < 10)
             month = '0' + month;
         if(day < 10)
@@ -82,6 +84,7 @@ export class TimeTableComponent implements OnInit, OnDestroy{
         this.date.currentDay = this.date.startDate.getFullYear() + '-' + month + '-' + day;
         this.date.endDate = new Date();
         this.date.endDate.setDate(this.date.startDate.getDate()+1);
+
         this.getPlayCenterData();
     }
 
